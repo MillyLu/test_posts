@@ -1,22 +1,25 @@
 import { Header } from "../components/header/Header";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "../store/postsReducer";
+import { fetchPosts, fetchPostsByPage } from "../store/postsReducer";
 import avatar from "../assests/img/ava.png";
 import Spinner from "react-bootstrap/Spinner";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
+import { Search } from "../components/search/Search";
 import { Paginate } from "../components/pagination/Pagination";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export function MainPage() {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState("1");
   const [postsPerPage] = useState(10);
+  const [search, setSearch] = useState(false);
+  const [postTitle, setPostTitle] = useState("");
 
   const all = useSelector((state) => state.postsReducer.posts);
-  console.log(all.length);
+  const postsCount = useSelector((state) => state.postsReducer.postsCount);
+  console.log(postsCount.length);
+  console.log(all);
   const loading = useSelector((state) => state.loading.loading);
 
   const lastPostIndex = currentPage * postsPerPage;
@@ -24,6 +27,14 @@ export function MainPage() {
   const currentPosts = all.slice(firstPostIndex, lastPostIndex);
   console.log(currentPosts);
   console.log(currentPage);
+
+  useEffect(() => {
+    dispatch(fetchPosts())},
+     [dispatch]);
+
+     useEffect(() => {
+      dispatch(fetchPostsByPage(currentPage, postsPerPage))},
+       [dispatch, currentPage, postsPerPage]);   
 
   return (
     <>
@@ -35,16 +46,8 @@ export function MainPage() {
       >
         ПОЛУЧИТЬ posts
       </button>
-      <InputGroup className="mb-3">
-        <Form.Control
-          placeholder="Поиск по заголовку"
-          aria-label="Поиск по заголовку"
-          aria-describedby="basic-addon2"
-        />
-        <Button variant="outline-secondary" id="button-addon2">
-          Найти
-        </Button>
-      </InputGroup>
+
+      <Search setSearch={setSearch} setPostTitle={setPostTitle} />
       {loading === "true" && (
         <Spinner animation="border" role="status">
           <span className="visually-hidden">Loading...</span>
@@ -64,7 +67,7 @@ export function MainPage() {
         ))}
       <Paginate
         postsPerPage={postsPerPage}
-        totalPosts={all.length}
+        totalPostsCount={postsCount.length}
         setCurrentPage={setCurrentPage}
       />
     </>

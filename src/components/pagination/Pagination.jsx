@@ -1,27 +1,27 @@
 import Pagination from "react-bootstrap/Pagination";
+import _ from "lodash";
 
-export function Paginate({ postsPerPage, totalPosts, setCurrentPage }) {
+export function Paginate({ postsPerPage, totalPostsCount, setCurrentPage }) {
   let active = 1;
-  let items = [];
-  for (
-    let number = 1;
-    number <= Math.ceil(totalPosts / postsPerPage);
-    number++
-  ) {
-    items.push(
-      <Pagination.Item
-        onClick={() => setCurrentPage(number)}
-        key={number}
-        active={number === active}
-      >
-        {number}
-      </Pagination.Item>
-    );
-  }
+
+  const pageCount = Math.ceil(totalPostsCount / postsPerPage);
+  let pages = _.range(1, pageCount);
+
 
   return (
     <div>
-      <Pagination>{items}</Pagination>
+      <Pagination>
+        {totalPostsCount &&
+          pages.map((pageNumber) => (
+            <Pagination.Item
+              onClick={() => setCurrentPage(pageNumber)}
+              key={pageNumber}
+              active={pageNumber === active}
+            >
+              {pageNumber}
+            </Pagination.Item>
+          ))}
+      </Pagination>
     </div>
   );
 }
