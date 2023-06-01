@@ -24,5 +24,5 @@ export default function postsReducer(state = initialState, action) {
 
 export const setPosts = (payload) => ({ type: SET_POSTS, payload });
 export const setPostsCount = (payload) => ({ type: SET_POSTS_COUNT, payload });
-export const fetchPosts = () => ({ type: FETCH_POSTS });
+export const fetchPosts = () => ({ type: FETCH_POSTS}); ////////////////
 export const fetchPostsByPage = (pageNumber, postLimit) => ({ type: FETCH_POSTS_BY_PAGE, pageNumber, postLimit });

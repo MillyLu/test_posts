@@ -16,11 +16,11 @@ const loading = () =>
   new Promise((resolve, reject) => {
     setTimeout(resolve, 5000);
   });
-
-function* fetchPostsWorker() {
+ 
+function* fetchPostsWorker() {   ///////////////
   try {
     yield put({ type: LOADING_POSTS, payload: "true" });
-    const postsCount = yield call(getAllPosts);
+    const postsCount = yield call(getAllPosts); //////////////////////
     const post = yield call(getPostByPage, 1, 10);
     yield loading();
     yield put({ type: LOADED_POSTS, payload: "false" });

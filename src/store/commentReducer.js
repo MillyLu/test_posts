@@ -16,4 +16,7 @@ export default function commentReducer(state = defaultState, action) {
 }
 
 export const setComments = (payload) => ({ type: SET_COMMENTS, payload });
-export const fetchComments = () => ({ type: FETCH_COMMENTS });
+export const fetchComments = (id) => ({
+  type: FETCH_COMMENTS,
+  id,
+});
