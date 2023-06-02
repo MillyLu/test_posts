@@ -5,8 +5,7 @@ export function Paginate({ postsPerPage, totalPostsCount, setCurrentPage }) {
   let active = 1;
 
   const pageCount = Math.ceil(totalPostsCount / postsPerPage);
-  let pages = _.range(1, pageCount);
-
+  let pages = _.range(1, pageCount + 1);
 
   return (
     <div>

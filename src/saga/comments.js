@@ -1,13 +1,10 @@
-import { put, takeEvery, call } from "redux-saga/effects";
+import { put, call, takeEvery } from "redux-saga/effects";
 import { FETCH_COMMENTS, setComments } from "../store/commentReducer";
+import { getCommentsById } from "../apiServices";
 
-const fetchCommentsFromApi = (id) =>
-  fetch(`ttps://jsonplaceholder.typicode.com/comments?postId=${id}`);
-
-function* fetchCommentsWorker() {
-  const data = yield call(fetchCommentsFromApi());
-  const json = yield call(() => new Promise((res) => res(data.json())));
-  yield put(setComments(json));
+function* fetchCommentsWorker(action) {
+  const comments = yield call(getCommentsById, action.id);
+  yield put(setComments(comments));
 }
 
 export function* commentsWatcher() {
