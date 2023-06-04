@@ -2,11 +2,10 @@ import { put, takeEvery, call } from "redux-saga/effects";
 import {
   FETCH_POSTS,
   setPosts,
-  setPostsCount,
   FETCH_POSTS_BY_PAGE,
+  FETCH_POST_BY_TITLE,
 } from "../store/postsReducer";
-import { LOADED_POSTS, LOADING_POSTS } from "../store/loadingReducer";
-import { getAllPosts, getPostByPage } from "../apiServices";
+import { getAllPosts, getPostByPage, getPostByTitle } from "../apiServices";
 
 const requestPostsError = () => {
   return { type: "REQUESTED_POSTS_FAILED" };
@@ -14,18 +13,16 @@ const requestPostsError = () => {
 
 const loading = () =>
   new Promise((resolve, reject) => {
-    setTimeout(resolve, 5000);
+    setTimeout(resolve, 500);
   });
- 
-function* fetchPostsWorker() {   ///////////////
+
+function* fetchPostsWorker() {
   try {
-    yield put({ type: LOADING_POSTS, payload: "true" });
-    const postsCount = yield call(getAllPosts); //////////////////////
-    const post = yield call(getPostByPage, 1, 10);
+    const posts = yield call(getAllPosts);
+
     yield loading();
-    yield put({ type: LOADED_POSTS, payload: "false" });
-    yield put(setPostsCount(postsCount));
-    yield put(setPosts(post));
+
+    yield put(setPosts(posts));
   } catch (error) {
     yield put(requestPostsError);
   }
@@ -36,10 +33,19 @@ function* fetchPostsByPageWorker(action) {
   yield put(setPosts(post));
 }
 
+function* fetchPostByTitle(action) {
+  const postByTitle = yield call(getPostByTitle, action.postTitle);
+  yield put(setPosts(postByTitle));
+}
+
 export function* postsByPageWatchers() {
   yield takeEvery(FETCH_POSTS_BY_PAGE, fetchPostsByPageWorker);
 }
 
 export function* postsWatchers() {
   yield takeEvery(FETCH_POSTS, fetchPostsWorker);
+}
+
+export function* postByTitleWatchers() {
+  yield takeEvery(FETCH_POST_BY_TITLE, fetchPostByTitle);
 }
