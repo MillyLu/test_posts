@@ -30,3 +30,8 @@ export const getCommentsByUser = async (id) => {
     );
     return response.json();
   };
+
+  export const getPostByTitle = async (postTitle) => {  
+    const response = await fetch(`https://jsonplaceholder.typicode.com/posts?title=${postTitle}`);  
+    return response.json();
+  };  
