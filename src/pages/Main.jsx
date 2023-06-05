@@ -7,6 +7,7 @@ import { Paginate } from "../components/pagination/Pagination";
 import { useEffect, useState } from "react";
 import { PostCard } from "../components/postCard/PostCard";
 import { Filter } from "../components/filter/Filter";
+import { Container } from "react-bootstrap";
 
 export function MainPage() {
   const dispatch = useDispatch();
@@ -20,6 +21,8 @@ export function MainPage() {
 
   const all = useSelector((state) => state.postsReducer.posts);
   const loading = useSelector((state) => state.postsReducer.loading);
+  //const postsError = useSelector((state) => state.postsReducer.error);
+
 
   console.log(all);
   console.log(loading);
@@ -27,18 +30,19 @@ export function MainPage() {
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
   const currentPosts =
-    postsSorted.length > 1
+    postsSorted.length > 1 
       ? postsSorted.slice(firstPostIndex, lastPostIndex)
-      : all.slice(firstPostIndex, lastPostIndex);
+      : all.length > 1 ? all.slice(firstPostIndex, lastPostIndex) : [];
 
   console.log(currentPage);
 
+
   useEffect(() => {
-    if (sortAscending) {
+    if (sortAscending && all.length > 1) {
       const sorted = all.slice().sort((a, b) => (a.title > b.title ? 1 : -1));
       setPostsSorted(sorted);
     }
-    if (sortDescending) {
+    if (sortDescending && all.length > 1) {
       const sorted = all.slice().sort((a, b) => (a.title > b.title ? -1 : 1));
       setPostsSorted(sorted);
     }
@@ -57,6 +61,7 @@ export function MainPage() {
   return (
     <>
       <Header />
+      <Container>
       <Search setSearch={setSearch} setPostTitle={setPostTitle} />
       <Filter
         setSortAscending={setSortAscending}
@@ -91,11 +96,15 @@ export function MainPage() {
           />
         ))}
 
+     
+
       <Paginate
         postsPerPage={postsPerPage}
         totalPostsCount={all.length}
         setCurrentPage={setCurrentPage}
       />
+      </Container>
+     
     </>
   );
 }

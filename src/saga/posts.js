@@ -4,12 +4,13 @@ import {
   setPosts,
   FETCH_POSTS_BY_PAGE,
   FETCH_POST_BY_TITLE,
+  requestPostsError,
 } from "../store/postsReducer";
 import { getAllPosts, getPostByPage, getPostByTitle } from "../apiServices";
 
-const requestPostsError = () => {
+/*const requestPostsError = () => {
   return { type: "REQUESTED_POSTS_FAILED" };
-};
+};*/
 
 const loading = () =>
   new Promise((resolve, reject) => {
@@ -24,7 +25,7 @@ function* fetchPostsWorker() {
 
     yield put(setPosts(posts));
   } catch (error) {
-    yield put(requestPostsError);
+    yield put(requestPostsError(error));
   }
 }
 

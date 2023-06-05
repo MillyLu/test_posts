@@ -1,11 +1,12 @@
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
-import CloseButton from 'react-bootstrap/CloseButton';
-import { useState } from "react";
+import CloseButton from "react-bootstrap/CloseButton";
+import { useState, useRef } from "react";
 
 export function Search({ setSearch, setPostTitle }) {
   const [title, setTitle] = useState("");
+  const ref = useRef();
 
   return (
     <InputGroup className="mb-3">
@@ -14,8 +15,18 @@ export function Search({ setSearch, setPostTitle }) {
         aria-label="Поиск по заголовку"
         aria-describedby="basic-addon2"
         onChange={(event) => setTitle(event.target.value)}
+        style={{ position: "relative" }}
+        ref={ref}
       />
-      <CloseButton onClick={() => {setSearch(false); setTitle(""); setPostTitle("")}}/>
+      <CloseButton
+        style={{ position: "absolute", top: "0.4em", right: "4.4em" }}
+        onClick={() => {
+          setSearch(false);
+          setTitle("");
+          setPostTitle("");
+          ref.current.value = "";
+        }}
+      />
       <Button
         onClick={() => {
           setPostTitle(title);
