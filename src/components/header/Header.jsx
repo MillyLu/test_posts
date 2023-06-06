@@ -25,7 +25,9 @@ export function Header() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className="justify-content-end flex-grow-1 pe-3">
-              <Nav.Link href="/">Список постов</Nav.Link>
+              <Nav.Link as={Link} to="/">
+                Список постов
+              </Nav.Link>
               <Nav.Link as={Link} to="/about">
                 Обо мне
               </Nav.Link>
