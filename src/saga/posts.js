@@ -2,51 +2,33 @@ import { put, takeEvery, call } from "redux-saga/effects";
 import {
   FETCH_POSTS,
   setPosts,
-  FETCH_POSTS_BY_PAGE,
-  FETCH_POST_BY_TITLE,
   requestPostsError,
 } from "../store/postsReducer";
-import { getAllPosts, getPostByPage, getPostByTitle } from "../apiServices";
+import { getAllPosts } from "../apiServices";
 
-/*const requestPostsError = () => {
-  return { type: "REQUESTED_POSTS_FAILED" };
-};*/
 
 const loading = () =>
   new Promise((resolve, reject) => {
     setTimeout(resolve, 500);
   });
 
-function* fetchPostsWorker() {
+function* fetchPostsWorker(action) {
   try {
-    const posts = yield call(getAllPosts);
-
+    const posts = yield call(getAllPosts, action.postTitle);
     yield loading();
 
     yield put(setPosts(posts));
   } catch (error) {
+
     yield put(requestPostsError(error));
+
   }
 }
 
-function* fetchPostsByPageWorker(action) {
-  const post = yield call(getPostByPage, action.pageNumber, action.postLimit);
-  yield put(setPosts(post));
-}
 
-function* fetchPostByTitle(action) {
-  const postByTitle = yield call(getPostByTitle, action.postTitle);
-  yield put(setPosts(postByTitle));
-}
-
-export function* postsByPageWatchers() {
-  yield takeEvery(FETCH_POSTS_BY_PAGE, fetchPostsByPageWorker);
-}
 
 export function* postsWatchers() {
   yield takeEvery(FETCH_POSTS, fetchPostsWorker);
 }
 
-export function* postByTitleWatchers() {
-  yield takeEvery(FETCH_POST_BY_TITLE, fetchPostByTitle);
-}
+

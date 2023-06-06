@@ -1,16 +1,19 @@
 import { put, call, takeEvery } from "redux-saga/effects";
-import { FETCH_COMMENTS, setComments } from "../store/commentReducer";
-import { getCommentsById } from "../apiServices";
-
-const loading = () =>
-  new Promise((resolve, reject) => {
-    setTimeout(resolve, 500);
-  });
+import {
+  FETCH_COMMENTS,
+  setComments,
+  requestCommentsError,
+} from "../store/commentReducer";
+import { getCommentsById, loading } from "../apiServices";
 
 function* fetchCommentsWorker(action) {
-  const comments = yield call(getCommentsById, action.id);
-  loading();
-  yield put(setComments(comments));
+  try {
+    const comments = yield call(getCommentsById, action.id);
+    yield loading();
+    yield put(setComments(comments));
+  } catch (error) {
+    yield put(requestCommentsError(error));
+  }
 }
 
 export function* commentsWatcher() {

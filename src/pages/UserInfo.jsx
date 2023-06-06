@@ -12,16 +12,16 @@ import Badge from 'react-bootstrap/Badge'
 
 export function UserInfoPage() {
   const params = useParams();
-  console.log(params);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.userReducer.user);
   const comments = useSelector((state) => state.userReducer.comments);
   const loading = useSelector((state) => state.userReducer.loading);
+  const userError = useSelector((state) => state.userReducer.userError);
+  const postError = useSelector((state) => state.userReducer.postsError);
 
-  console.log(user);
-  console.log(comments);
 
   useEffect(() => {
     dispatch(fetchUser(Number(params.id)));
@@ -39,6 +39,9 @@ export function UserInfoPage() {
         </Spinner>
       )}
       <h2>Информация о пользователе <Badge bg="secondary">Info</Badge>:</h2>
+      {userError && (
+        <p>{userError.message}</p>
+      )}
       {user.map((userItem) => (
         <Card  style={{ width: "20rem", marginBottom: "20px"}}>
           <Card.Body>
@@ -51,6 +54,9 @@ export function UserInfoPage() {
         </Card>
       ))}
       <h3 style={{marginBottom: "20px"}}>Список постов пользователя:</h3>
+      {postError && (
+        <p>{postError.message}</p>
+      )}
       {comments &&
         comments.map((post) => (
           <PostCard

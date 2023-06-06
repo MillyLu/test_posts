@@ -2,7 +2,7 @@ const initialState = {
   postsCount: "",
   posts: [],
   loading: false,
-  error: [],
+  error: "",
 };
 
 export const SET_POSTS = "SET_POSTS";
@@ -11,7 +11,6 @@ export const FETCH_POSTS_BY_PAGE = "FETCH_POSTS_BY_PAGE";
 export const SET_POSTS_COUNT = "SET_POSTS_COUNT";
 export const FETCH_POST_BY_TITLE = "FETCH_POST_BY_TITLE";
 export const REQUESTED_POSTS_FAILED = "REQUESTED_POSTS_FAILED";
-//export const LOADING_POSTS = "LOADING_POSTS";
 
 export default function postsReducer(state = initialState, action) {
   switch (action.type) {
@@ -32,10 +31,9 @@ export default function postsReducer(state = initialState, action) {
   }
 }
 
-//export const loadingPosts = () => ({ type: LOADING_POSTS });
 export const setPosts = (payload) => ({ type: SET_POSTS, payload });
 export const setPostsCount = (payload) => ({ type: SET_POSTS_COUNT, payload });
-export const fetchPosts = () => ({ type: FETCH_POSTS }); ////////////////
+export const fetchPosts = (postTitle) => ({ type: FETCH_POSTS, postTitle }); ////////////////
 export const fetchPostsByPage = (pageNumber, postLimit) => ({
   type: FETCH_POSTS_BY_PAGE,
   pageNumber,
