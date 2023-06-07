@@ -1,10 +1,6 @@
 import Form from "react-bootstrap/Form";
 
-export function Filter({
-  setSortAscending,
-  setSortDescending,
-  setPostsSorted,
-}) {
+export function Filter({ setSortAscending, setPostsSorted }) {
   return (
     <div key={`inline-radio`} className="mb-3">
       <Form.Check
@@ -12,9 +8,10 @@ export function Filter({
         label="по возрастанию"
         name="group1"
         type="radio"
-        checked
+        defaultChecked
         id={`inline-radio-2`}
         onChange={() => {
+          setPostsSorted([]);
           setSortAscending(true);
         }}
       />
@@ -25,8 +22,8 @@ export function Filter({
         type="radio"
         id={`inline-radio-2`}
         onChange={() => {
-          setSortAscending(false);
           setPostsSorted([]);
+          setSortAscending(false);
         }}
       />
     </div>
