@@ -12,10 +12,10 @@ export function Filter({
         label="по возрастанию"
         name="group1"
         type="radio"
+        checked
         id={`inline-radio-2`}
         onChange={() => {
           setSortAscending(true);
-          setSortDescending(false);
         }}
       />
       <Form.Check
@@ -26,7 +26,6 @@ export function Filter({
         id={`inline-radio-2`}
         onChange={() => {
           setSortAscending(false);
-          setSortDescending(true);
           setPostsSorted([]);
         }}
       />

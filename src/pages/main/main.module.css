@@ -1,0 +1,9 @@
+.main_posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  justify-items: center;
+  justify-content: space-evenly;
+  grid-row-end: span 2;
+}
+
+

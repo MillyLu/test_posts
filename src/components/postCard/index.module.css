@@ -1,0 +1,21 @@
+.postCard{
+    width: 23rem;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.postCard_title{
+    height: 3em;
+}
+
+.postCard_text{
+    height: 8em;
+}
+
+.postCard_btn{
+    margin-bottom: 5px;
+}
+
+.item{
+    margin-bottom: 5px;
+}

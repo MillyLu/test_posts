@@ -3,6 +3,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Button from "react-bootstrap/Button";
 import CloseButton from "react-bootstrap/CloseButton";
 import { useState, useRef } from "react";
+import styles from "./index.module.css";
 
 export function Search({ setSearch, setPostTitle }) {
   const [title, setTitle] = useState("");
@@ -11,15 +12,15 @@ export function Search({ setSearch, setPostTitle }) {
   return (
     <InputGroup className="mb-3">
       <Form.Control
+      className={styles.search_input}
         placeholder="Поиск по заголовку"
         aria-label="Поиск по заголовку"
         aria-describedby="basic-addon2"
         onChange={(event) => setTitle(event.target.value)}
-        style={{ position: "relative" }}
         ref={ref}
       />
       <CloseButton
-        style={{ position: "absolute", top: "0.4em", right: "4.4em" }}
+        className={styles.search_closeBtn}
         onClick={() => {
           setSearch(false);
           setTitle("");
