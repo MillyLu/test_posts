@@ -86,7 +86,7 @@ export function MainPage() {
           setCurrentPage={setCurrentPage}
         />
 
-        {postsError && <p>{postsError.message}</p>}
+        {postsError && <p className={styles.error}>Упс...{postsError.message}</p>}
       </Container>
     </>
   );

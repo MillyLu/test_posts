@@ -6,4 +6,7 @@
   grid-row-end: span 2;
 }
 
-
+.error {
+  font-size: 16px;
+  color: red;
+}

@@ -10,13 +10,6 @@ export const getAllPosts = async (postTitle) => {
   return response.data;
 };
 
-/*export const getCommentsById = async (id) => {
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/comments?postId=${id}`
-  );
-  return response.json();
-};*/
-
 export const getCommentsById = async (id) => {
   const response = await axios.get(
     `https://jsonplaceholder.typicode.com/comments?postId=${id}`
@@ -31,12 +24,6 @@ export const getUserInfoById = async (id) => {
   return response.data;
 };
 
-/*export const getCommentsByUser = async (id) => {
-  const response = await fetch(
-    `https://jsonplaceholder.typicode.com/posts?userId=${id}`
-  );
-  return response.json();
-};*/
 
 export const getCommentsByUser = async (id) => {
   const response = await axios.get(

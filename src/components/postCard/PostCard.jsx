@@ -15,6 +15,7 @@ export function PostCard(props) {
   const comments = useSelector((state) => state.commentReducer.comments);
   const commentsLoading = useSelector((state) => state.commentReducer.loading);
   const commentsError = useSelector((state) => state.commentReducer.error);
+  const id = useSelector((state) => state.commentReducer.id);
 
   return (
     <Card key={props.id} className={styles.postCard}>
@@ -35,7 +36,7 @@ export function PostCard(props) {
         >
           Загрузить комментарии
         </Button>
-        {commentsLoading && (
+        {id === props.postId && commentsLoading && (
           <div>
             <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
@@ -59,7 +60,9 @@ export function PostCard(props) {
             </ListGroup>
           ))}
 
-        {commentsError && <p>{commentsError.message}</p>}
+        {commentsError && (
+          <p className={styles.error}>{commentsError.message}</p>
+        )}
       </Card.Body>
     </Card>
   );
