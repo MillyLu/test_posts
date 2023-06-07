@@ -2,6 +2,7 @@ const defaultState = {
   comments: [],
   loading: false,
   error: "",
+  id: "",
 };
 
 export const SET_COMMENTS = "SET_COMMENTS";
@@ -11,7 +12,7 @@ export const REQUESTED_COMMENTS_FAILED = "REQUESTED_COMMENTS_FAILED";
 export default function commentReducer(state = defaultState, action) {
   switch (action.type) {
     case FETCH_COMMENTS:
-      return { ...state, loading: true };
+      return { ...state, loading: true, id: action.id};
 
     case SET_COMMENTS:
       return { ...state, comments: action.payload, loading: false };

@@ -47,7 +47,9 @@ export function UserInfoPage() {
           Информация о пользователе <Badge bg="secondary">Info</Badge>:
         </h2>
         <div className={styles.user_user}>
-          {userError && <p>{userError.message}</p>}
+          {userError && (
+            <p className={styles.error}>Упс...{userError.message}</p>
+          )}
           {user.map((userItem) => (
             <Card key={userItem.name} className={styles.user_userCard}>
               <Card.Body>
@@ -64,7 +66,7 @@ export function UserInfoPage() {
           ))}
         </div>
         <h3 className={styles.user_subtitle}>Список постов пользователя:</h3>
-        {postError && <p>{postError.message}</p>}
+        {postError && <p className={styles.error}>Упс...{postError.message}</p>}
         <div className={styles.user_posts}>
           {comments &&
             comments.map((post) => (

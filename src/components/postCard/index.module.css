@@ -19,3 +19,8 @@
 .item{
     margin-bottom: 5px;
 }
+
+.error {
+    font-size: 16px;
+    color: red;
+  }
