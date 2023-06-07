@@ -1,0 +1,9 @@
+.search_input{
+    position: relative;
+}
+
+.search_closeBtn{
+    position: absolute;
+    top: 0.4em;
+    right: 4.4em
+}

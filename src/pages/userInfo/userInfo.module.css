@@ -1,0 +1,27 @@
+.user_backBtn {
+  margin-bottom: 30px;
+  margin-top: 20px;
+}
+
+.user_userCard {
+  width: 20rem;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user_subtitle {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.user_posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+  justify-items: center;
+  justify-content: space-evenly;
+}
+
+.user_user {
+  display: flex;
+  justify-content: center;
+}

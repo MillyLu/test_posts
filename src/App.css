@@ -1,3 +1,10 @@
 .App {
   text-align: center;
 }
+
+.layout{
+  background-color: rgb(248,249,250);
+  padding-left: 10%;
+  padding-right: 10%;
+  min-height: 100vh;
+}
