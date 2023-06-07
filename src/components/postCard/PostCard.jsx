@@ -30,8 +30,11 @@ export function PostCard(props) {
           variant="primary"
           value={props.id}
           onClick={() => {
-            dispatch(fetchComments(Number(props.postId)));
-            setOpenComments((prev) => !prev);
+            if (openComments) setOpenComments(false);
+            else {
+              dispatch(fetchComments(Number(props.postId)));
+              setOpenComments((prev) => !prev);
+            }
           }}
         >
           Загрузить комментарии
