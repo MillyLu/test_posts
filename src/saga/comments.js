@@ -10,7 +10,7 @@ function* fetchCommentsWorker(action) {
   try {
     const comments = yield call(getCommentsById, action.id);
     yield loading();
-    yield put(setComments(comments));
+    yield put(setComments(comments, action.id));
   } catch (error) {
     yield put(requestCommentsError(error));
   }
