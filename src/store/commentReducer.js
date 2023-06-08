@@ -1,5 +1,5 @@
 const defaultState = {
-  comments: [],
+  comments: {},
   loading: false,
   error: "",
   id: "",
@@ -14,8 +14,8 @@ export default function commentReducer(state = defaultState, action) {
     case FETCH_COMMENTS:
       return { ...state, loading: true, id: action.id};
 
-    case SET_COMMENTS:
-      return { ...state, comments: action.payload, loading: false };
+    case SET_COMMENTS: 
+      return { ...state, comments: {...state.comments, [action.id ]: action.payload}, loading: false };
 
     case REQUESTED_COMMENTS_FAILED:
       return { ...state, error: action.payload, loading: false};  
@@ -25,7 +25,7 @@ export default function commentReducer(state = defaultState, action) {
   }
 }
 
-export const setComments = (payload) => ({ type: SET_COMMENTS, payload });
+export const setComments = (payload, id) => ({ type: SET_COMMENTS, payload, id });
 export const fetchComments = (id) => ({
   type: FETCH_COMMENTS,
   id,

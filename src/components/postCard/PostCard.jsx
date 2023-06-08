@@ -17,6 +17,8 @@ export function PostCard(props) {
   const commentsError = useSelector((state) => state.commentReducer.error);
   const id = useSelector((state) => state.commentReducer.id);
 
+  console.log(openComments);
+
   return (
     <Card key={props.id} className={styles.postCard}>
       <Link to={/user/ + props.userId}>
@@ -48,8 +50,8 @@ export function PostCard(props) {
         )}
 
         {openComments &&
-          !commentsLoading &&
-          comments.map((comment) => (
+          (!commentsLoading || (id !== props.postId && commentsLoading)) &&
+          comments[props.postId].map((comment) => (
             <ListGroup as="ul" key={comment.id}>
               <ListGroup.Item
                 as="li"

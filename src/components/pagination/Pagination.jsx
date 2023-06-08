@@ -1,6 +1,6 @@
 import Pagination from "react-bootstrap/Pagination";
 import _ from "lodash";
-import styles from './index.module.css';
+import styles from "./index.module.css";
 
 export function Paginate({ postsPerPage, totalPostsCount, setCurrentPage }) {
   let active = 1;
